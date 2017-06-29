@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+{% block title %} 部门列表 {% endblock %}
+{% block static %}
+
+{% endblock %}
+{% block body %}
+{{ super() }}
+<table>
+    <tr>
+        <!--<th>部门id</th>-->
+        <th>部门名称</th>
+        <!--<th>父级部门id</th>-->
+        <th>次序</th>
+        <th>操作</th>
+    </tr>
+    {% for dp in departmentList %}
+    <tr>
+        <!--<td>{{ dp.id}}</td>-->
+        <td>{{ dp.name}}</td>
+        <!--<td>{{ dp.parentid}}</td>-->
+        <td>{{ dp.order }}</td>
+        <td>
+            <a href="?id={{ dp.id }}">修改</a> |
+            <a href="/client/users?departmentId={{ dp.id }}">查看</a>
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+{% endblock %}
