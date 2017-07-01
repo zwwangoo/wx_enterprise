@@ -11,6 +11,8 @@
 
     pip install falsk
     pip install pyCrypto
+    pip install flask-bootstrap
+    pip install chartkick
 
 没用数据库
 
