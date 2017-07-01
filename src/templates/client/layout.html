@@ -1,0 +1,58 @@
+{% extends "bootstrap/base.html"  %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet.css') }}">
+{% endblock %}
+
+{% block title %}Flask{% endblock %}
+
+{% block navbar %}
+<div class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/client">首页</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/client/departments">部门管理</a></li>
+            </ul>
+            <ul class="nav navbar-nav">
+                <li><a href="/client/users">用户管理</a></li>
+            </ul>
+            <ul class="nav navbar-nav">
+                <li><a href="/client/users">消息管理</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                     <a href="#">Admin</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">管理<strong class="caret"></strong></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                             <a href="#">关于本平台</a>
+                        </li>
+                        <li class="divider">
+                        </li>
+                        <li>
+                             <a href="#">安全退出</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block content %}
+<div class="container">
+  {% block page_content %}{% endblock %}
+</div>
+{% endblock %}

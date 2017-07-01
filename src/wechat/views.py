@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+import json
+import random
+
 from flask import redirect, request, make_response, render_template
 import hashlib
 from __init__ import wechat
@@ -24,4 +27,13 @@ def validation():
 
 @wechat.route("/xml")
 def send():
-    return render_template('wConfig.xml')
+    return render_template('wechat/wConfig.xml')
+
+
+@wechat.route("/")
+def index():
+    # data = []
+    # for i in range(30):
+    #     data[i] = random.seed(a=None, version=2)
+    data = {'1': 151, '2': 23, '3': 152.6, '4': 15, '5':125, '6': 12, '7': 52.6}
+    return render_template("wechat/test.html", data=json.dumps(data, encoding='utf-8'))

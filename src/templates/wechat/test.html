@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/highcharts.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/chartkick.js') }}"></script>
+</head>
+<body>
+    <!-- 这是横向条形图 -->
+    {% line_chart data with style="width:200px; height:20px;" %}
+    {% bar_chart data with style="width:200px; height:20px;" %}
+    <!-- 这是园饼形图 -->
+    {% pie_chart data %}
+
+
+</body>
+</html>

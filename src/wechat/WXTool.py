@@ -6,15 +6,13 @@ import urllib2
 import xml.etree.cElementTree as ET
 
 from src.wechat.WXBizMsgCrypt import WXBizMsgCrypt
-from src.wechat.models import WechatError
 
 
 class weiTool(object):
     def __init__(self):
         basePath = os.path.dirname(os.path.dirname(__file__))
         informationStateXml = os.path.join(
-            basePath, "wechat/templates/wConfig.xml")
-        print informationStateXml
+            basePath, "templates/wechat/wConfig.xml")
         tree = ET.ElementTree(file=informationStateXml)
         self.sToken = tree.find("sToken").text
         self.sEncodingAESKey = tree.find("sEncodingAESKey").text
@@ -48,7 +46,7 @@ class weiTool(object):
             'https://qyapi.weixin.qq.com/cgi-bin/user/simplelist?access_token=' +
             self.getToken() +
             '&department_id=' + departmentId +
-            '&fetch_child=0&status=1'
+            '&fetch_child=1&status=1'
         )
         response = urllib2.urlopen(req)
         the_page = response.read()
@@ -83,7 +81,7 @@ class weiTool(object):
         jsonreturn = json.loads(the_page)
         if jsonreturn.has_key("errcode"):
             if jsonreturn["errcode"] != 0:
-                raise WechatError("保存到微信发生错误，错误编码是"+jsonreturn["errcode"])
+                return "保存到微信发生错误，错误编码是"+jsonreturn["errcode"]
         return jsonreturn["errmsg"]
 
     # # 给指定用户发送消息

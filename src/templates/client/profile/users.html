@@ -1,0 +1,81 @@
+{% extends 'client/layout.html' %}
+
+{% block title %} 用户列表 {% endblock %}
+
+{% block static %}
+{% endblock %}
+{% block page_content %}
+{{ super() }}
+    <table>
+        <tr>
+            <th>部门id</th>
+            <th>用户id</th>
+            <th>姓名</th>
+            <th>管理</th>
+        </tr>
+        {% for uls in userList %}
+        <tr>
+            <td>{{ uls.department }}</td>
+            <td>{{ uls.userid }}</td>
+            <td>{{ uls.name }}</td>
+            <td><a href="">查看</a> | <a href="javascript:void(0);" name="{{ uls.name }}" onclick="sendMsg(this.id, this.name)" id="{{ uls.userid }}">信息</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <ul class="pagination">
+        <li>
+             <a href="#">上一页</a>
+        </li>
+        <li>
+             <a href="#">1</a>
+        </li>
+        <li>
+             <a href="#">2</a>
+        </li>
+        <li>
+             <a href="#">3</a>
+        </li>
+        <li>
+             <a href="#">4</a>
+        </li>
+        <li>
+             <a href="#">5</a>
+        </li>
+        <li>
+             <a href="#">下一页</a>
+        </li>
+    </ul>
+    <div class="sendMsg"></div>
+    <a id="modal-810776" href="#modal-container-810776" role="button" class="btn" data-toggle="modal">触发遮罩窗体</a>
+
+    <div class="modal fade" id="modal-container-810776" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        标题
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    内容...
+                </div>
+                <div class="modal-footer">
+                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button> <button type="button" class="btn btn-primary">保存</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+<script>
+    function sendMsg(userid, username) {
+        var str = "<form action='/client/sendMsg' method='get'><label for='message'>";
+        str += username + ":</label>";
+        str += "<input name='message' type='text' value='' placeholder='内容'/>";
+        str += "<input name='userid' type='text' value='"+ userid +"' style='display: none'>";
+        str += "<input type='submit' value='发送'></form>";
+        document.getElementsByClassName("sendMsg")[0].innerHTML = str;
+    }
+</script>
+{% endblock %}

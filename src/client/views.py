@@ -8,7 +8,7 @@ from src.wechat.WXTool import weiTool
 
 @client.route("/")
 def index():
-    return render_template("profile/index.html")
+    return render_template("client/profile/index.html")
 
 
 @client.route("/users")
@@ -19,7 +19,7 @@ def users():
             we = weiTool()
             departmentId = request.args.get("departmentId")
             userList = we.getDepartmentUsers(departmentId)
-            return render_template("profile/users.html", userList=userList)
+            return render_template("client/profile/users.html", userList=userList)
         else:
             return redirect(url_for('client.departments'))
 
@@ -28,7 +28,28 @@ def users():
 def departments():
     we = weiTool()
     departmentList = we.getDepartmentList()
-    return render_template("profile/departments.html", departmentList= departmentList)
+    if len(departmentList) >= 0:
+        deep_list = []
+        id_list = []
+        class_list = []
+        for department in departmentList:
+            deep_list.append(department["parentid"])
+        deep_list = list(set(deep_list))
+        for deep in deep_list:
+            dem = {}
+            departmentL = []
+            for department in departmentList:
+
+                if department["parentid"] == deep:
+                    departmentL.append(department)
+                    departmentList.remove(department)
+                    print departmentList
+                else:
+                    pass
+            dem[deep] = departmentL
+            class_list.append(dem)
+        print class_list
+    return render_template("client/profile/departments.html", departmentList= departmentList)
 
 
 @client.route("/sendMsg")
@@ -38,4 +59,6 @@ def sendMsg():
     users = request.args.get("userid")
     if msg != "":
         ret = we.sendMsg(users, msg)
-    return json.dumps(ret)
+        return json.dumps(ret)
+    else:
+        return 'null'
